@@ -8,8 +8,7 @@ public class Movement : MonoBehaviour
     public float moveForce = 1.0f;
     public float liftForce = 1.0f;
     Rigidbody physics;
-    int groundCount;
-    int wallCount;
+    int surfaceCount;
     float vertical;
     float horizontal;
     float lift;
@@ -21,24 +20,16 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        // on ground
-        if (groundCount > 0)
+        // on surface
+        if (surfaceCount > 0)
         {
             vertical = Input.GetAxis("Vertical");
             horizontal = Input.GetAxis("Horizontal");
-            lift = 0.0f;
+            lift = liftForce;
             if (Input.GetButtonDown("Jump"))
             {
                 physics.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
-        }
-        // wall running
-        else if (wallCount > 0)
-        {
-            float forward = Mathf.Clamp01(Vector3.Dot(physics.velocity, transform.forward));
-            vertical = Input.GetAxis("Vertical") * forward;
-            horizontal = 0.0f;
-            lift = liftForce * vertical;
         }
         // falling
         else
@@ -58,25 +49,17 @@ public class Movement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Ground"))
+        if (collision.collider.CompareTag("Surface"))
         {
-            groundCount++;
-        }
-        if (collision.collider.CompareTag("Wall"))
-        {
-            wallCount++;
+            surfaceCount++;
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.collider.CompareTag("Ground"))
+        if (collision.collider.CompareTag("Surface"))
         {
-            groundCount--;
-        }
-        if (collision.collider.CompareTag("Wall"))
-        {
-            wallCount--;
+            surfaceCount--;
         }
     }
 }
