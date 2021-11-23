@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public Material wallRunning;
+    public Material grounded;
     public float jumpForce = 1.0f;
     public float moveForce = 1.0f;
     public float liftForce = 1.0f;
     Rigidbody physics;
+    new Renderer renderer;
     int groundCount;
     int wallCount;
     float vertical;
@@ -17,6 +20,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         physics = GetComponent<Rigidbody>();
+        renderer = GetComponent<Renderer>();
     }
 
     void Update()
@@ -26,7 +30,7 @@ public class Movement : MonoBehaviour
         {
             vertical = Input.GetAxis("Vertical");
             horizontal = Input.GetAxis("Horizontal");
-            lift = liftForce;
+            lift = 0.0f;
             if (Input.GetButtonDown("Jump"))
             {
                 physics.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -42,7 +46,13 @@ public class Movement : MonoBehaviour
 
         if (wallCount > 0 && groundCount == 0)
         {
-            Debug.Log("Wall running");
+            renderer.material = wallRunning;
+            lift = liftForce;
+            horizontal = 0.0f;
+        }
+        else if (groundCount >= 0)
+        {
+            renderer.material = grounded;
         }
     }
 

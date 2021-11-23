@@ -177,7 +177,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ce2a0f52d8e8bf841a6f4e1aa1665bfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -230,8 +230,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421618862}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 60
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -250,9 +250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848be62d7d2eae84a9c6f69ef686438d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
-  moveForce: 10
-  liftForce: 8
+  wallRunning: {fileID: 2100000, guid: 09487cfb6daa7494eb75a038b7114f43, type: 2}
+  grounded: {fileID: 2100000, guid: ce2a0f52d8e8bf841a6f4e1aa1665bfe, type: 2}
+  jumpForce: 500
+  moveForce: 1000
+  liftForce: 500
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
